@@ -423,6 +423,16 @@ func (in *BlockConfig) DeepCopyInto(out *BlockConfig) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.NativeQoSClasses != nil {
+		in, out := &in.NativeQoSClasses, &out.NativeQoSClasses
+		*out = make([]corev1.PodQOSClass, len(*in))
+		copy(*out, *in)
+	}
+	if in.RuntimeClasses != nil {
+		in, out := &in.RuntimeClasses, &out.RuntimeClasses
+		*out = make([]string, len(*in))
+		copy(*out, *in)
+	}
 	return
 }
 

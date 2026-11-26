@@ -17,6 +17,7 @@ limitations under the License.
 package v1alpha1
 
 import (
+	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
@@ -196,6 +197,18 @@ type BlockConfig struct {
 	// Annotations indicates disable tmo if pods with these annotations. The requirements are ORed.
 	// +optional
 	Annotations []metav1.LabelSelectorRequirement `json:"annotations,omitempty"`
+
+	// NativeQoSClasses indicates disable tmo if pods are assigned with these native kubernetes
+	// QoS classes, e.g. Guaranteed, Burstable, BestEffort. The requirements are ORed with
+	// labels, annotations and runtimeClasses.
+	// +optional
+	NativeQoSClasses []corev1.PodQOSClass `json:"nativeQoSClasses,omitempty"`
+
+	// RuntimeClasses indicates disable tmo if pods are assigned with these runtime class
+	// names, e.g. kata-duma. The requirements are ORed with labels, annotations and
+	// nativeQoSClasses.
+	// +optional
+	RuntimeClasses []string `json:"runtimeClasses,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

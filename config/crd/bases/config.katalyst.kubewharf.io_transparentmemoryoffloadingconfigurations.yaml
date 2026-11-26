@@ -247,6 +247,21 @@ spec:
                           - operator
                           type: object
                         type: array
+                      nativeQoSClasses:
+                        description: NativeQoSClasses indicates disable tmo if pods
+                          are assigned with these native kubernetes QoS classes, e.g.
+                          Guaranteed, Burstable, BestEffort. The requirements are ORed
+                          with labels, annotations and runtimeClasses.
+                        items:
+                          type: string
+                        type: array
+                      runtimeClasses:
+                        description: RuntimeClasses indicates disable tmo if pods are
+                          assigned with these runtime class names, e.g. kata-duma. The
+                          requirements are ORed with labels, annotations and nativeQoSClasses.
+                        items:
+                          type: string
+                        type: array
                     type: object
                   poolNameConfig:
                     description: PoolNameConfig is a configuration for manipulating
